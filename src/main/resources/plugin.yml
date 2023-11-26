@@ -2,3 +2,7 @@ name: superflat
 version: '${project.version}'
 main: com.inaenaro.superflat.Superflat
 api-version: '1.20'
+commands:
+  end-portal:
+    usage: /end-portal <give|locate|reset>
+    permission: op
