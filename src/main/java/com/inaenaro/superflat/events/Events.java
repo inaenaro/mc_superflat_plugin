@@ -13,7 +13,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,11 +25,6 @@ import static com.inaenaro.superflat.events.Data.getData;
 public class Events implements Listener {
 
     @EventHandler
-    public static void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("ようこそ無の境地へ...");
-    }
-
-    @EventHandler
     public static void onEntitySpawn(EntitySpawnEvent event) {
         if (event.getEntityType() == EntityType.MAGMA_CUBE) {
             if (event.getLocation().getBlock().getBiome() == Biome.BASALT_DELTAS && ((MagmaCube) event.getEntity()).getSize() == 4) {
@@ -38,6 +32,16 @@ public class Events implements Listener {
                 if (random < 0.2) {
                     event.setCancelled(true);
                     Objects.requireNonNull(event.getLocation().getWorld()).spawnEntity(event.getLocation(), EntityType.BLAZE);
+                }
+            }
+            return;
+        }
+        if (event.getEntityType() == EntityType.SKELETON) {
+            if (event.getLocation().getBlock().getBiome() == Biome.SOUL_SAND_VALLEY) {
+                double random = Math.random();
+                if (random < 0.1) {
+                    event.setCancelled(true);
+                    Objects.requireNonNull(event.getLocation().getWorld()).spawnEntity(event.getLocation(), EntityType.WITHER_SKELETON);
                 }
             }
         }
